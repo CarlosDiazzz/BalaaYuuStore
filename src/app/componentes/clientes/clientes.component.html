@@ -14,44 +14,63 @@
       </div>
     </div>
   </div>
+</section>
   <!--Listado de clientes-->
   <section id="clientes">
     <div class="container">
-      <div class="row">
-        <div class="col-md-9">
-          <div class="card">
-            <div class="card-header">
-              <h4>Listado de Clientes</h4>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Listado de Clientes</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Saldo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Iterar sobre la lista de clientes -->
+                             @for(cliente of clientes; track cliente){
+                                <tr>
+                                    <td>{{cliente.nombre}} {{cliente.apellido}}</td>
+                                    <td>{{cliente.saldo | currency: 'MNX':'$'}}</td>
+                                    <td>
+                                        <a routerLink="/cliente/editar/{{cliente.id}}"
+                                            class="btn btn-secondary">
+                                            <i class="bi bi-pencil-square"></i> Editar
+                                        </a>
+                                    </td>
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <table class="table table-striped">
-              <thead class="table-dark">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Saldo</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- iterar sobre la lista de clientes-->
-                @for (cliente of clientes; track cliente) {
-                <tr>
-                  <td>{{ cliente.nombre }} {{ cliente.apelldo }}</td>
-                  <td>{{ cliente.saldo | currency : "MNX" : "$" }}</td>
-                  <td>
-                    <a
-                      routerLink="/cliente/editar/{{ cliente.id }}"
-                      class="btn btn-secondary"
-                    >
-                      <i class="bi bi-pencil-square"></i>Editar
-                    </a>
-                  </td>
-                </tr>
-                }
-              </tbody>
-            </table>
-          </div>
+            <!-- Tarjetas Laterales -->
+            <div class="col-md-3">
+                <!-- Primer tarjeta -->
+                <div class="card text-center bg-danger text-white mb-3">
+                    <div class="card-body">
+                        <h3>Saldo Total</h3>
+                        <h4 class="display-4">
+                            {{getSaldoTotal() | currency: 'MNX':'$'}}
+                        </h4>
+                    </div>
+                </div>
+                <!-- Segunda tarjeta -->
+                <div class="card text-center bg-success text-white mb-3">
+                    <div class="card-body">
+                        <h3>Total Clientes</h3>
+                        <h4 class="display-4">
+                            <i class="bi bi-people-fill"></i> {{clientes?.length}}
+                        </h4>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
 </section>

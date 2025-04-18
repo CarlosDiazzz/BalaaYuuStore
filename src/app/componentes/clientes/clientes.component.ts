@@ -7,17 +7,24 @@ import { RouterModule } from '@angular/router'; // Added RouterModule import
 
 @Component({
   // Removed invalid 'imports' property
+  selector: 'app-clientes',
   imports: [CommonModule, RouterModule],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css',
 })
 export class ClientesComponent {
+
   clientes: Cliente[] | null = null;
 
   constructor(private clienteService: ClienteService) {}
+
   ngOnInit() {
     this.clienteService.getClientes().subscribe((clientes) => {
       this.clientes = clientes;
     });
   }
+
+  getSaldoTotal(): string|number {
+    return 0;
+    }
 }
