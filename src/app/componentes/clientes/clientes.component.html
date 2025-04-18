@@ -1,1 +1,57 @@
-<p>clientes works!</p>
+<!--Botones -->
+<section id="actions" class="py-4 mb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a
+          href="#"
+          class="btn btn-primary w-100"
+          data-bs-toggle="modal"
+          data-bs-target="#agregarClienteModal"
+        >
+          <i class="bi bi-plus-circle"></i> Agregar Cliente
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--Listado de clientes-->
+  <section id="clientes">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header">
+              <h4>Listado de Clientes</h4>
+            </div>
+            <table class="table table-striped">
+              <thead class="table-dark">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Saldo</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- iterar sobre la lista de clientes-->
+                @for (cliente of clientes; track cliente) {
+                <tr>
+                  <td>{{ cliente.nombre }} {{ cliente.apelldo }}</td>
+                  <td>{{ cliente.saldo | currency : "MNX" : "$" }}</td>
+                  <td>
+                    <a
+                      routerLink="/cliente/editar/{{ cliente.id }}"
+                      class="btn btn-secondary"
+                    >
+                      <i class="bi bi-pencil-square"></i>Editar
+                    </a>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
