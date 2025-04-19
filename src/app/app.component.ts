@@ -5,9 +5,10 @@ import { PiePaginaComponent } from "./componentes/pie-pagina/pie-pagina.componen
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, CabeceroComponent, PiePaginaComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
   titulo = 'Control de Clientes';

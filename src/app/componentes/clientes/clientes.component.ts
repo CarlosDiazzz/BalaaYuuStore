@@ -1,30 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Cliente } from '../../modelo/cliente.modelo';
-import { Observable } from 'rxjs';
 import { ClienteService } from '../../servicios/cliente.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // Added RouterModule import
+import { RouterModule } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
-  // Removed invalid 'imports' property
   selector: 'app-clientes',
-  imports: [CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.css',
+  styleUrl: './clientes.component.css'
 })
 export class ClientesComponent {
-
   clientes: Cliente[] | null = null;
+  cliente: Cliente = {
+    nombre: '',
+    apellido: '',
+    email: '',
+    saldo: undefined
+  };
 
-  constructor(private clienteService: ClienteService) {}
+  @ViewChild('botonCerrar') botonCerrar!: ElementRef;//se recupera el elemento del DOM para cerrar el modal
+
+  constructor(private clienteServicio: ClienteService) { }
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe((clientes) => {
+    this.clienteServicio.getClientes().subscribe(clientes => {
       this.clientes = clientes;
     });
   }
 
-  getSaldoTotal(): string|number {
-    return 0;
+  getSaldoTotal(): number {
+    return this.clientes?.reduce((total, cliente) => total + (cliente.saldo ?? 0), 0) ?? 0;
+  }
+
+  agregar(clienteForm: NgForm) {
+    const {value, valid} = clienteForm;
+    if(valid){
+      // Agregamos la logica para guardar el cliente
+      this.clienteServicio.agregarCliente(value);
+      // Limpiamos el formulario
+      clienteForm.resetForm();
+      this.cerrarModal();
     }
+  }
+
+  private cerrarModal(){
+    this.botonCerrar.nativeElement.click();
+  }
+
 }
