@@ -22,11 +22,11 @@ export class ArtesanosComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   artesano: Artesano = {
     id: 1,
-    nombre: 'Juan Pérez',
-    biografia: 'Artesano con más de 20 años de experiencia en la elaboración de alebrijes. Originario de San Martín Tilcajete, Oaxaca, ha dedicado su vida a preservar y transmitir las técnicas tradicionales de tallado y pintura de estas coloridas figuras.',
-    lat: 17.0659,
-    lng: -96.7237,
-    fotoUrl: ''
+    nombre: 'Doña Rosa Real Mateo de Nieto',
+    biografia: 'Sin embargo, en la década de 1960, Doña Rosa Real Mateo de Nieto hizo un descubrimiento que cambió el barro negro. Lo que comenzó como un error se convirtió en una nueva técnica. Ella comenzó a quemar las piezas a una temperatura más baja y luego las pulió con cuarzo justo antes de que estuvieran completamente secas. El barro ya quemado adquiría un acabado pulido y un negro intenso.Estas piezas novedosas se vendieron rápidamente y a un precio alto, lo que atrajo mucha atención al pueblo. Muchos alfareros de San Bartolo volvieron a centrarse en hacer piezas de barro negro con esta nueva técnica.',
+    lat: 16.911339,
+    lng: -96.523161,
+    fotoUrl: 'https://alfareriadonarosa.com.mx/wp-content/uploads/2022/01/Don%CC%83a-Rosa-galeri%CC%81a-2-05.jpg'
       };
   
   private map: any;
