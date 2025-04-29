@@ -1,14 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Artesano } from '../../modelo/artesano.model';
 
-export interface Artesano {
-  id: number;
-  nombre: string;
-  biografia: string;
-  lat: number;
-  lng: number;
-  fotoUrl: string;
-}
 
 declare global {
   interface Window {
@@ -25,8 +18,16 @@ declare global {
   styleUrl: './artesanos.component.css'
 })
 export class ArtesanosComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Input() artesano!: Artesano;
+  
   @ViewChild('mapContainer') mapContainer!: ElementRef;
+  artesano: Artesano = {
+    id: 1,
+    nombre: 'Juan Pérez',
+    biografia: 'Artesano con más de 20 años de experiencia en la elaboración de alebrijes. Originario de San Martín Tilcajete, Oaxaca, ha dedicado su vida a preservar y transmitir las técnicas tradicionales de tallado y pintura de estas coloridas figuras.',
+    lat: 17.0659,
+    lng: -96.7237,
+    fotoUrl: ''
+      };
   
   private map: any;
   private marker: any;
