@@ -1,57 +1,66 @@
 <footer id="pie-pagina" class="footer">
     <div class="container">
-        <div class="row">
-            <!-- Información de la empresa -->
-            <div class="col-md-4 mb-4 mb-md-0">
-                <h5 class="footer-title">Balaa Yuu</h5>
-                <p class="footer-text">
-                    Promoviendo y preservando las artesanías tradicionales de Oaxaca, 
-                    conectando a artesanos con amantes del arte y la cultura.
-                </p>
-            </div>
-            
-            <!-- Información de contacto -->
-            <div class="col-md-4 mb-4 mb-md-0">
-                <h5 class="footer-title">Contacto</h5>
-                <ul class="list-unstyled footer-contact">
-                    <li>
-                        <i class="bi bi-telephone-fill me-2"></i>
-                        <a href="tel:{{contacto.telefono}}">{{contacto.telefono}}</a>
-                    </li>
-                    <li>
-                        <i class="bi bi-envelope-fill me-2"></i>
-                        <a href="mailto:{{contacto.email}}">{{contacto.email}}</a>
-                    </li>
-                    <li>
-                        <i class="bi bi-geo-alt-fill me-2"></i>
-                        {{contacto.direccion}}
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- Redes sociales -->
-            <div class="col-md-4">
-                <h5 class="footer-title">Síguenos</h5>
-                <div class="social-icons">
-                    @for (red of redesSociales; track red.nombre) {
-                        <a href="{{red.url}}" target="_blank" class="social-icon" [attr.aria-label]="red.nombre">
-                            <i class="bi {{red.icono}}"></i>
-                        </a>
-                    }
-                </div>
-            </div>
+      <div class="row">
+        <!-- Información de la empresa -->
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="footer-title">Balaa Yuu</h5>
+          <p class="footer-text">
+            Promoviendo y preservando las artesanías tradicionales de Oaxaca, 
+            conectando a artesanos con amantes del arte y la cultura.
+            Si eres artesano y deseas vender con nosotros contactanos por WhatsApp.
+          </p>
         </div>
-        
-        <!-- Línea divisoria -->
-        <hr class="footer-divider">
-        
-        <!-- Copyright -->
-        <div class="row">
-            <div class="col-12 text-center">
-                <p class="copyright">
-                    &copy; {{currentYear}} Balaa Yuu. Todos los derechos reservados.
-                </p>
-            </div>
+  
+        <!-- Información de contacto -->
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="footer-title">Contacto</h5>
+          <ul class="list-unstyled footer-contact">
+            <li>
+              <i class="bi bi-telephone-fill me-2"></i>
+              <a href="tel:{{contacto.telefono}}">{{contacto.telefono}}</a>
+            </li>
+            <li>
+              <i class="bi bi-envelope-fill me-2"></i>
+              <a href="mailto:{{contacto.email}}">{{contacto.email}}</a>
+            </li>
+            <li>
+              <i class="bi bi-geo-alt-fill me-2"></i>
+              {{contacto.direccion}}
+            </li>
+          </ul>
         </div>
+  
+        <!-- Redes sociales -->
+        <div class="col-md-4">
+          <h5 class="footer-title">Síguenos</h5>
+          <div class="social-icons">
+            @for (red of redesSociales; track red.nombre) {
+              <a href="{{red.url}}" target="_blank" class="social-icon" [attr.aria-label]="red.nombre">
+                <i class="bi {{red.icono}}"></i>
+              </a>
+            }
+            <!-- Ícono adicional de WhatsApp -->
+            <a href="https://wa.me/5219512438439?text=Hola%20soy%20artesano%20y%20me%20interesa%20registrarme%20como%20uno%20en%20su%20sitio%20web!" 
+               target="_blank" 
+               class="social-icon ms-2" 
+               aria-label="WhatsApp">
+              <i class="bi bi-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Línea divisoria -->
+      <hr class="footer-divider">
+  
+      <!-- Copyright -->
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="copyright">
+            &copy; {{currentYear}} Balaa Yuu. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
     </div>
-</footer>
+  </footer>
+  

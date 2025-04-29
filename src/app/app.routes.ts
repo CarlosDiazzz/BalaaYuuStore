@@ -17,14 +17,14 @@ import { CoyotepecInfoComponent } from './componentes/coyotepec-info/coyotepec-i
 import { TlapazolaInfoComponent } from './componentes/tlapazola-info/tlapazola-info.component';
 
 export const routes: Routes = [
-    {path: '', component: TableroComponent, canActivate: [LoginGuardianService]}, // Ruta principal que carga el componente TableroComponent
+    {path: '', component: TableroComponent}, // Ruta principal que carga el componente TableroComponent
     {path: 'login', component: LoginComponent},
     {path: 'registrarse', component: RegistroComponent},
     {path: 'productos', component: ProductosCatalogoComponent},
     {path: 'nosotros', component: ConocenosComponent},
-    {path: 'carrito', component: CarritoComponent},
+    {path: 'carrito', component: CarritoComponent, canActivate: [LoginGuardianService]},
     {path: 'artesanos', component: ArtesanosComponent},
-    {path: 'agregar_producto', component: AgregarProductoComponent},
+    {path: 'agregar_producto', component: AgregarProductoComponent, canActivate: [LoginGuardianService]},
     {path: 'cliente/editar/:id', component: EditarClienteComponent, canActivate: [LoginGuardianService]},
     {path: 'pueblos/atzompa', component: AtzompaInfoComponent},
     {path: 'pueblos/coyotepec', component: CoyotepecInfoComponent},
