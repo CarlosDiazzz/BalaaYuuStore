@@ -1,36 +1,25 @@
 <div class="container mt-4">
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @for (producto of products; track producto.id) {
+    @for (producto of productos; track producto.id) {
       <div class="col">
         <div class="card h-100">
           <div class="card-body">
+            <img [src]="producto.imageUrl || 'assets/no-image.png'" class="card-img-top" alt="{{ producto.name }}">
             <h5 class="card-title">{{ producto.name }}</h5>
             <p class="card-text">{{ producto.description }}</p>
+            <p class="card-text">Stock: {{ producto.stock }}</p>
             <p class="card-text precio">{{ producto.price | currency:'MXN':'symbol':'1.2-2' }}</p>
-            <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">
-              <i class="bi bi-cart-plus"></i> Agregar al Carrito
-            </button>
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-primary" (click)="agregarAlCarrito(producto)">
+                <i class="bi bi-cart-plus"></i> Agregar
+              </button>
+              <button class="btn btn-danger" (click)="eliminarProducto(producto.id ?? '')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     }
-  </div>
-</div>
-
-<!-- Modal de Bootstrap -->
-<div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="carritoModalLabel">Producto Agregado</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        El producto ha sido agregado al carrito exitosamente.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
   </div>
 </div>
