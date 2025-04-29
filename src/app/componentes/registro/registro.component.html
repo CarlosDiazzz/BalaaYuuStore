@@ -1,0 +1,25 @@
+<div class="container">
+    <h2>Registro</h2>
+    <form (ngSubmit)="register()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="email" name="email" placeholder="Correo electrónico" required />
+      </div>
+      
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Contraseña" required />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+  </div>
+  
