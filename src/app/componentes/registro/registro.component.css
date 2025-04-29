@@ -1,0 +1,61 @@
+/* Estilos para el componente de registro */
+.bg-cream {
+  background-color: #f8e9c9; /* Mismo color que el footer y cabecero */
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.5rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.input-group-text {
+  background-color: #f8e9c9;
+  border: 1px solid #ced4da;
+  color: #6c757d;
+}
+
+.form-control:focus {
+  border-color: #e67e22;
+  box-shadow: 0 0 0 0.25rem rgba(230, 126, 34, 0.25);
+}
+
+.btn-primary {
+  background-color: #e67e22;
+  border-color: #e67e22;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #d35400;
+  border-color: #d35400;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-danger {
+  background-color: #fef2f2;
+  border-color: #fee2e2;
+  color: #dc2626;
+}
+
+a.text-primary {
+  color: #e67e22 !important;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a.text-primary:hover {
+  text-decoration: underline;
+}

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../servicios/login.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-register',
   templateUrl: './registro.component.html',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule, CommonModule],
   styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
