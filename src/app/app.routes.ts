@@ -9,6 +9,7 @@ import { ProductosCatalogoComponent } from './componentes/productos-catalogo/pro
 import { ConocenosComponent } from './componentes/conocenos/conocenos.component';
 import { ArtesanosComponent } from './componentes/artesanos/artesanos.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
+import { AgregarProductoComponent } from './componentes/agregar-producto/agregar-producto.component';
 
 export const routes: Routes = [
     {path: '', component: TableroComponent, canActivate: [LoginGuardianService]}, // Ruta principal que carga el componente TableroComponent
@@ -18,6 +19,7 @@ export const routes: Routes = [
     {path: 'nosotros', component: ConocenosComponent},
     {path: 'carrito', component: CarritoComponent},
     {path: 'artesanos', component: ArtesanosComponent},
+    {path: 'agregar_producto', component: AgregarProductoComponent},
     {path: 'cliente/editar/:id', component: EditarClienteComponent, canActivate: [LoginGuardianService]},
     {path: '**', component: NoEncontradoComponent} // Redirige a la página principal si la ruta no coincide con ninguna definida
 

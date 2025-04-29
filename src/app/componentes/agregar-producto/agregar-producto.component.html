@@ -1,1 +1,71 @@
-<p>agregar-producto works!</p>
+<section class="py-4 mb-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <form #productoForm="ngForm" (ngSubmit)="editando ? guardarCambios(productoForm) : agregar(productoForm)">
+            <h4 class="mb-3">{{ editando ? 'Editar Producto' : 'Agregar Producto' }}</h4>
+  
+            <div class="mb-3">
+              <label>Nombre</label>
+              <input type="text" name="name" class="form-control" required [(ngModel)]="producto.name">
+            </div>
+  
+            <div class="mb-3">
+              <label>Descripción</label>
+              <input type="text" name="description" class="form-control" required [(ngModel)]="producto.description">
+            </div>
+  
+            <div class="mb-3">
+              <label>Precio</label>
+              <input type="number" name="price" class="form-control" required min="0" [(ngModel)]="producto.price">
+            </div>
+  
+            <div class="mb-3">
+              <label>Stock</label>
+              <input type="number" name="stock" class="form-control" required min="0" [(ngModel)]="producto.stock">
+            </div>
+  
+            <div class="mb-3">
+              <label>URL Imagen</label>
+              <input type="text" name="imageUrl" class="form-control" [(ngModel)]="producto.imageUrl">
+            </div>
+  
+            <button type="submit" class="btn btn-primary me-2" [disabled]="productoForm.invalid">
+              {{ editando ? 'Guardar Cambios' : 'Agregar Producto' }}
+            </button>
+            <button *ngIf="editando" type="button" class="btn btn-secondary" (click)="cancelarEdicion(productoForm)">Cancelar</button>
+          </form>
+        </div>
+  
+        <div class="col-md-8">
+          <h4>Listado de Productos</h4>
+          <table class="table table-bordered">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let prod of productos">
+                <td>{{ prod.name }}</td>
+                <td>{{ prod.price | currency }}</td>
+                <td>{{ prod.stock }}</td>
+                <td>
+                  <button class="btn btn-secondary btn-sm me-2" (click)="editar(prod)">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="eliminar(prod.id)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  
