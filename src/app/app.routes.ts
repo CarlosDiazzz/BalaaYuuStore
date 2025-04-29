@@ -9,6 +9,9 @@ import { ProductosCatalogoComponent } from './componentes/productos-catalogo/pro
 import { ConocenosComponent } from './componentes/conocenos/conocenos.component';
 import { ArtesanosComponent } from './componentes/artesanos/artesanos.component';
 import { CarritoComponent } from './componentes/carrito/carrito.component';
+import { AtzompaInfoComponent } from './componentes/atzompa-info/atzompa-info.component';
+import { CoyotepecInfoComponent } from './componentes/coyotepec-info/coyotepec-info.component';
+import { TlapazolaInfoComponent } from './componentes/tlapazola-info/tlapazola-info.component';
 
 export const routes: Routes = [
     {path: '', component: TableroComponent, canActivate: [LoginGuardianService]}, // Ruta principal que carga el componente TableroComponent
@@ -19,6 +22,8 @@ export const routes: Routes = [
     {path: 'carrito', component: CarritoComponent},
     {path: 'artesanos', component: ArtesanosComponent},
     {path: 'cliente/editar/:id', component: EditarClienteComponent, canActivate: [LoginGuardianService]},
+    {path: 'pueblos/atzompa', component: AtzompaInfoComponent},
+    {path: 'pueblos/coyotepec', component: CoyotepecInfoComponent},
+    {path: 'pueblos/tlapazola', component: TlapazolaInfoComponent},
     {path: '**', component: NoEncontradoComponent} // Redirige a la página principal si la ruta no coincide con ninguna definida
-
 ];

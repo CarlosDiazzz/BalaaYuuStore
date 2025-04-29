@@ -1,4 +1,4 @@
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="8000">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -6,24 +6,24 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="images/imagen_1.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="...">
+      <img src="images/imagen_1.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="Artesanía de Oaxaca">
       <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Some representative placeholder content for the first slide.</p>
+        <h5 class="display-4 fw-bold">Hay que tratar de sacar el trabajo más bonito día a día</h5>
+        <p class="lead">Cada pieza es un reflejo de nuestra dedicación y amor por la artesanía</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/imagen-2.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="...">
+      <img src="images/imagen-2.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="Artesanía de Oaxaca">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
+        <h5 class="display-4 fw-bold">Lo que me gusta es dibujar, el arte que yo aprendí</h5>
+        <p class="lead">Cada trazo cuenta una historia, cada diseño preserva nuestra cultura</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/imagen_3.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="...">
+      <img src="images/imagen_3.jpeg" class="d-block w-100" style="height: 100vh; object-fit: cover;" alt="Artesanía de Oaxaca">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
+        <h5 class="display-4 fw-bold">Tuvimos la suerte de empezar, con este trabajo, que nos cambió la vida</h5>
+        <p class="lead">La artesanía no es solo un oficio, es el legado de generaciones</p>
       </div>
     </div>
   </div>
@@ -38,36 +38,61 @@
 </div>
 
 <div class="container my-5">
+  <h2 class="text-center mb-4">Nuestros Pueblos Artesanos</h2>
   <div class="row">
-    <div class="col-md-4 mb-3 d-flex align-items-center justify-content-center">
-      <div class="card w-100 text-center">
-        <div class="card-body d-flex flex-column justify-content-center">
-          <h3 class="card-title">Santa María Atzompa</h3>
-          <p class="card-text">
-            <i class="bi bi-file-plus-fill btn" style="font-size: 3rem"></i>
-          </p>
+    <div class="col-md-4 mb-4 d-flex align-items-center justify-content-center">
+      <a [routerLink]="['/pueblos/atzompa']" class="text-decoration-none w-100">
+        <div class="card pueblo-card">
+          <div class="card-img-top img-fluid">
+            <div class="icon-container">
+              <i class="bi bi-cup-hot-fill"></i>
+            </div>
+          </div>
+          <div class="card-body text-center">
+            <h3 class="card-title">Santa María Atzompa</h3>
+            <p class="card-text">Barro Vidriado Verde</p>
+            <div class="card-footer-btn">
+              <span class="btn-explore">Explorar <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
-    <div class="col-md-4 mb-3 d-flex align-items-center justify-content-center">
-      <div class="card w-100 text-center">
-        <div class="card-body d-flex flex-column justify-content-center">
-          <h3 class="card-title">San Bartolo Coyotepec</h3>
-          <p class="card-text">
-            <i class="bi bi-file-plus-fill btn" style="font-size: 3rem"></i>
-          </p>
+    <div class="col-md-4 mb-4 d-flex align-items-center justify-content-center">
+      <a [routerLink]="['/pueblos/coyotepec']" class="text-decoration-none w-100">
+        <div class="card pueblo-card">
+          <div class="card-img-top img-fluid">
+            <div class="icon-container">
+              <i class="bi bi-circle-half"></i>
+            </div>
+          </div>
+          <div class="card-body text-center">
+            <h3 class="card-title">San Bartolo Coyotepec</h3>
+            <p class="card-text">Barro Negro</p>
+            <div class="card-footer-btn">
+              <span class="btn-explore">Explorar <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
-    <div class="col-md-4 mb-3 d-flex align-items-center justify-content-center">
-      <div class="card w-100 text-center">
-        <div class="card-body d-flex flex-column justify-content-center">
-          <h3 class="card-title">San Marcos Tlapazola</h3>
-          <p class="card-text">
-            <i class="bi bi-box btn" style="font-size: 3rem"></i>
-          </p>
+    <div class="col-md-4 mb-4 d-flex align-items-center justify-content-center">
+      <a [routerLink]="['/pueblos/tlapazola']" class="text-decoration-none w-100">
+        <div class="card pueblo-card">
+          <div class="card-img-top img-fluid">
+            <div class="icon-container">
+              <i class="bi bi-brush-fill"></i>
+            </div>
+          </div>
+          <div class="card-body text-center">
+            <h3 class="card-title">San Marcos Tlapazola</h3>
+            <p class="card-text">Barro Rojo</p>
+            <div class="card-footer-btn">
+              <span class="btn-explore">Explorar <i class="bi bi-arrow-right"></i></span>
+            </div>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
