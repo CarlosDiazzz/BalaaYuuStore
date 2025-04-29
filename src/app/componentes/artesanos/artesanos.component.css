@@ -1,0 +1,46 @@
+.artesano-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.artesano-imagen {
+  height: 100%;
+  object-fit: cover;
+  min-height: 300px;
+}
+
+.card-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: #666;
+  line-height: 1.6;
+}
+
+.mapa-container {
+  margin-top: 2rem;
+}
+
+.mapa {
+  height: 400px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .artesano-imagen {
+    min-height: 200px;
+  }
+  
+  .mapa {
+    height: 300px;
+  }
+} 
