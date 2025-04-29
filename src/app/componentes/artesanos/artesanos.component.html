@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <div class="card artesano-card">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="artesano.fotoUrl" class="img-fluid rounded-start artesano-imagen" alt="Foto de {{ artesano.nombre }}">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h2 class="card-title">{{ artesano.nombre }}</h2>
+          <p class="card-text">{{ artesano.biografia }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mapa-container mt-4">
+    <h3 class="mb-3">Ubicación del Artesano</h3>
+    <div #mapContainer class="mapa"></div>
+  </div>
+</div> 
