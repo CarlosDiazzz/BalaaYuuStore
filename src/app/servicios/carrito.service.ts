@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Producto } from '../modelo/producto.model';
 import { ProductoService } from './producto.service';
+import { Observable, take, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,96 +16,123 @@ export class CarritoService {
   }
 
   agregarAlCarrito(producto: Producto) {
-    // Buscar si ya existe el producto en el carrito
-    const item = this.carrito.find(p => p.producto.id === producto.id);
-    
-    if (item) {
-      // Si ya existe el producto en el carrito, aumentar la cantidad
-      if (item.cantidad < producto.stock) {
-        item.cantidad++;
-        
-        // Crear una copia del producto para actualizar el stock
-        const productoActualizado = {...producto};
-        productoActualizado.stock--;
-        
-        // Actualizar en Firebase
-        this.productoService.modificarProducto(productoActualizado);
+    // Verificamos primero el stock actual del producto
+    this.productoService.getProductos().pipe(take(1)).subscribe(productos => {
+      const productoActual = productos.find(p => p.id === producto.id);
+      
+      if (!productoActual || productoActual.stock <= 0) {
+        console.log('No hay stock disponible');
+        return;
       }
-    } else {
-      // Si el producto no existe en el carrito y hay stock
-      if (producto.stock > 0) {
+
+      // Buscar si ya existe el producto en el carrito
+      const itemEnCarrito = this.carrito.find(p => p.producto.id === producto.id);
+      
+      if (itemEnCarrito) {
+        // Verificar que la cantidad en el carrito no supere el stock
+        const cantidadTotal = itemEnCarrito.cantidad + 1;
+        if (cantidadTotal <= productoActual.stock) {
+          itemEnCarrito.cantidad++;
+          console.log(`Producto incrementado en carrito: ${productoActual.name}`);
+        } else {
+          console.log('No hay más stock disponible para este producto');
+        }
+      } else {
         // Crear una copia del producto para el carrito
-        const productoCopia = {...producto};
-        
-        // Crear una copia del producto para actualizar el stock
-        const productoActualizado = {...producto};
-        productoActualizado.stock--;
-        
-        // Actualizar en Firebase y agregar al carrito
-        this.productoService.modificarProducto(productoActualizado);
+        const productoCopia = { ...productoActual };
         this.carrito.push({ producto: productoCopia, cantidad: 1 });
+        console.log(`Producto agregado al carrito: ${productoActual.name}`);
       }
-    }
+    });
   }
 
   eliminarDelCarrito(productoId: string) {
-    const item = this.carrito.find(i => i.producto.id === productoId);
-    if (item) {
-      // Buscar el producto actual en la base de datos para actualizar su stock
-      this.productoService.getProductos().subscribe(productos => {
-        const productoActual = productos.find(p => p.id === productoId);
-        if (productoActual) {
-          productoActual.stock += item.cantidad;
-          this.productoService.modificarProducto(productoActual);
-        }
-        // Eliminar del carrito después de actualizar el stock
-        this.carrito = this.carrito.filter(i => i.producto.id !== productoId);
-      }, error => {
-        console.error('Error al obtener productos:', error);
-      });
-    }
+    this.carrito = this.carrito.filter(i => i.producto.id !== productoId);
   }
 
   actualizarCantidad(productoId: string, nuevaCantidad: number) {
-    const item = this.carrito.find(p => p.producto.id === productoId);
-    if (item) {
-      const diferencia = nuevaCantidad - item.cantidad;
-      if (diferencia === 0) return;
-
-      // Buscar el producto actual en la base de datos para actualizar correctamente
-      this.productoService.getProductos().subscribe(productos => {
-        const productoActual = productos.find(p => p.id === productoId);
-        if (productoActual) {
-          const nuevoStock = productoActual.stock - diferencia;
-          if (nuevoStock < 0) return;
-
-          productoActual.stock = nuevoStock;
-          item.cantidad = nuevaCantidad;
-          this.productoService.modificarProducto(productoActual);
-        }
-      }, error => {
-        console.error('Error al obtener productos:', error);
-      });
-    }
+    // Verificar primero el stock actual del producto
+    this.productoService.getProductos().pipe(take(1)).subscribe(productos => {
+      const productoActual = productos.find(p => p.id === productoId);
+      const item = this.carrito.find(p => p.producto.id === productoId);
+      
+      if (!productoActual || !item) return;
+      
+      // Verificar que la nueva cantidad no exceda el stock disponible
+      if (nuevaCantidad <= productoActual.stock && nuevaCantidad >= 1) {
+        item.cantidad = nuevaCantidad;
+      } else if (nuevaCantidad > productoActual.stock) {
+        // Si excede el stock, ajustamos al máximo disponible
+        item.cantidad = productoActual.stock;
+      }
+    });
   }
 
   vaciarCarrito() {
-    // Actualizar el stock de todos los productos en el carrito
-    this.productoService.getProductos().subscribe(productos => {
-      for (const item of this.carrito) {
-        const productoActual = productos.find(p => p.id === item.producto.id);
-        if (productoActual) {
-          productoActual.stock += item.cantidad;
-          this.productoService.modificarProducto(productoActual);
+    this.carrito = [];
+  }
+
+  pagar() {
+    if (this.carrito.length === 0) {
+      return false;
+    }
+
+    // Actualizamos el stock de los productos en la base de datos
+    this.productoService.getProductos().pipe(
+      take(1),
+      switchMap(productos => {
+        const actualizaciones = [];
+        
+        for (const item of this.carrito) {
+          const productoActual = productos.find(p => p.id === item.producto.id);
+          
+          if (productoActual) {
+            // Verificar si hay suficiente stock
+            if (productoActual.stock < item.cantidad) {
+              console.error(`Stock insuficiente para ${productoActual.name}`);
+              return Promise.reject(`Stock insuficiente para ${productoActual.name}`);
+            }
+            
+            // Actualizar el stock
+            const nuevoStock = productoActual.stock - item.cantidad;
+            const productoActualizado = { ...productoActual, stock: nuevoStock };
+            actualizaciones.push(this.productoService.modificarProducto(productoActualizado));
+          }
         }
+        
+        return Promise.all(actualizaciones);
+      })
+    ).subscribe({
+      next: () => {
+        this.vaciarCarrito();
+        console.log('Pago procesado correctamente');
+        return true;
+      },
+      error: (error) => {
+        console.error('Error al procesar el pago:', error);
+        return false;
       }
-      this.carrito = [];
-    }, error => {
-      console.error('Error al obtener productos:', error);
     });
+    
+    return true;
   }
 
   obtenerTotal() {
     return this.carrito.reduce((total, item) => total + item.producto.price * item.cantidad, 0);
+  }
+
+  // Verificar si hay suficiente stock para todos los productos en el carrito
+  verificarStock(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.productoService.getProductos().pipe(take(1)).subscribe(productos => {
+        for (const item of this.carrito) {
+          const productoActual = productos.find(p => p.id === item.producto.id);
+          if (!productoActual || productoActual.stock < item.cantidad) {
+            resolve(false);
+          }
+        }
+        resolve(true);
+      });
+    });
   }
 }

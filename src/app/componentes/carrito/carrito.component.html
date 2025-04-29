@@ -1,6 +1,9 @@
 <div class="container mt-5">
     <h3>Carrito de Compras</h3>
-    <table class="table table-bordered mt-3">
+    <div *ngIf="carritoService.getCarrito().length === 0" class="alert alert-info">
+      El carrito está vacío
+    </div>
+    <table *ngIf="carritoService.getCarrito().length > 0" class="table table-bordered mt-3">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -15,9 +18,10 @@
           <td>{{ item.producto.name }}</td>
           <td>{{ item.producto.price | currency: 'MXN':'$' }}</td>
           <td>
-            <input type="number" class="form-control" [min]="1" [max]="item.producto.stock"
-                   [(ngModel)]="item.cantidad"
-                   (change)="carritoService.actualizarCantidad(item.producto.id!, item.cantidad)">
+            <input type="number" class="form-control" [min]="1" [max]="obtenerStockActual(item.producto.id!)"
+                  [(ngModel)]="item.cantidad"
+                  (change)="carritoService.actualizarCantidad(item.producto.id!, item.cantidad)">
+            <small class="text-muted">Stock disponible: {{ obtenerStockActual(item.producto.id!) }}</small>
           </td>
           <td>{{ item.producto.price * item.cantidad | currency: 'MXN':'$' }}</td>
           <td>
@@ -29,9 +33,8 @@
       </tbody>
     </table>
   
-    <div class="text-end mt-3">
+    <div *ngIf="carritoService.getCarrito().length > 0" class="text-end mt-3">
       <h5>Total: {{ carritoService.obtenerTotal() | currency: 'MXN':'$' }}</h5>
       <button class="btn btn-primary" (click)="pagar()">Pagar</button>
     </div>
   </div>
-  
