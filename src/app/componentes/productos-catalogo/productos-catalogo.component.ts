@@ -4,6 +4,7 @@ import { ProductoService } from '../../servicios/producto.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CarritoService } from '../../servicios/carrito.service';
 
 @Component({
   selector: 'app-producto-catalogo',
@@ -23,9 +24,20 @@ export class ProductosCatalogoComponent {
 
   @ViewChild('botonCerrar') botonCerrar!: ElementRef;
 
-  constructor(private productoServicio: ProductoService) {}
+  constructor(
+    private productoServicio: ProductoService,
+    private carritoService: CarritoService
+  ) {}
 
   ngOnInit() {
+    this.cargarProductos();
+  
+    // Escucha cambios de productos desde el servicio
+    this.productoServicio.productosActualizados$.subscribe(() => {
+      this.cargarProductos(); // Recargar productos al actualizar stock
+    });
+  }
+  private cargarProductos() {
     this.productoServicio.getProductos().subscribe(productos => {
       this.productos = productos;
     });
@@ -33,8 +45,7 @@ export class ProductosCatalogoComponent {
 
   // Agregar producto al carrito
   agregarAlCarrito(producto: Producto) {
-    alert(`"${producto.name}" agregado al carrito.`);
-    // Aquí puedes implementar la lógica para manejar el carrito de compras
+    this.carritoService.agregarAlCarrito(producto);
   }
 
   // Agregar un producto nuevo

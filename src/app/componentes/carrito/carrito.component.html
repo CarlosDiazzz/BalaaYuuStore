@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <h3>Carrito de Compras</h3>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of carritoService.getCarrito()">
+          <td>{{ item.producto.name }}</td>
+          <td>{{ item.producto.price | currency: 'MXN':'$' }}</td>
+          <td>
+            <input type="number" class="form-control" [min]="1" [max]="item.producto.stock"
+                   [(ngModel)]="item.cantidad"
+                   (change)="carritoService.actualizarCantidad(item.producto.id!, item.cantidad)">
+          </td>
+          <td>{{ item.producto.price * item.cantidad | currency: 'MXN':'$' }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="carritoService.eliminarDelCarrito(item.producto.id!)">
+              <i class="bi bi-trash"></i> Quitar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="text-end mt-3">
+      <h5>Total: {{ carritoService.obtenerTotal() | currency: 'MXN':'$' }}</h5>
+      <button class="btn btn-primary" (click)="pagar()">Pagar</button>
+    </div>
+  </div>
+  
